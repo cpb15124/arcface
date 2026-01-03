@@ -25,7 +25,7 @@ Highly recommended to watch the video first, then run the code in this repositor
 - TensorFlow-gpu 2.6.0 or higher / TensorFlow-gpu 2.6.0 或更高版本
 - OpenCV 4.9.0.80 or other versions / OpenCV 4.9.0.80 或其它版本均可
 - NumPy 1.21.5 or other versions / NumPy 1.21.5 或其它版本均可
-- OS Support: Windows / Linux (macOS not tested, theoretically compatible) / 系统支持：Windows / Linux（macOS 未测试，理论兼容）
+- OS Support: Windows Linux / 系统支持：Windows Linux 
 
 ## Quick Start / 快速开始
 ### 1. Clone the repository / 1. 克隆仓库
