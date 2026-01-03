@@ -23,7 +23,8 @@ _本项目去除了所有不必要的复杂依赖和代码，只保留核心实�
 git clone https://github.com/cpb15124/arcface-tutorial.git
 cd arcface-tutorial
 ```
-### 2. Clone the repository / 1. 克隆仓库
+### 2. Install dependencies / 1. 安装依赖
 ```bash
 git clone https://github.com/cpb15124/arcface-tutorial.git
 cd arcface-tutorial
+```
