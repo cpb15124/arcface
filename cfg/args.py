@@ -25,7 +25,7 @@ def parse_args():
                         default='./logs/', type=str)
 
     parser.add_argument('--initial_weight', dest='initial_weight', help="initial weight for ckpt",
-                        default='./logs/pretrain/weights_loss_0.556_date_20251225-11-56-38.h5', type=str)
+                        default='./logs/pretrain/weights_loss_0.191_date_20251225-12-03-08.h5', type=str)
 
     parser.add_argument('--demo_weight', dest='demo_weight', help="initial weight for ckpt",
                         default='./logs/demo/', type=str)

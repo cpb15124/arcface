@@ -30,45 +30,52 @@ def l2_normalize(x, axis=1, epsilon=1e-12):
 
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-LABELS = ['text', 'front', 'back']
-COLOR = [(0,0,255), (0,255,0), (255,0,0)]
 loaded_model = tf.saved_model.load("./logs/demo/")
 
 print("所有签名函数：", list(loaded_model.signatures.keys()))  # 通常是 ['serving_default']
 
-infer = loaded_model.signatures['serving_default']
-print(list(loaded_model.signatures.keys()))
-input_info = loaded_model.signatures["serving_default"].inputs
-print(input_info)
 infer = loaded_model.signatures["serving_default"]
 
 root = 'J:\\LLM\\'
 dirs = os.listdir(root)
 
-imgs1 = os.listdir(root + '\\' + dirs[0])
-src1 = cv.imread(root + '\\' + dirs[0] + '\\' + imgs1[0])
-
-imgs1 = os.listdir(root + '\\' + dirs[1])
-src2 = cv.imread(root + '\\' + dirs[1] + '\\' + imgs1[0])
-
+src1 = cv.imread('./imgs/Adam_Sandler_0001.jpg')
 src1 = cv.resize(src1, (C.IMAGE_SIZE_W, C.IMAGE_SIZE_H))
-src2 = cv.resize(src2, (C.IMAGE_SIZE_W, C.IMAGE_SIZE_H))
 src1 = src1 / 255.0
+
+src2 = cv.imread('./imgs/Adam_Sandler_0003.jpg')
+src2 = cv.resize(src2, (C.IMAGE_SIZE_W, C.IMAGE_SIZE_H))
 src2 = src2 / 255.0
-src1 = src1[np.newaxis, :, :, :]
-src2 = src2[np.newaxis, :, :, :]
-input1 = tf.convert_to_tensor(src1, dtype=tf.float32)
-input2 = tf.convert_to_tensor(src2, dtype=tf.float32)
+
+src3 = cv.imread('./imgs/Abdullah_Ahmad_Badawi_0001.jpg')
+src3 = cv.resize(src3, (C.IMAGE_SIZE_W, C.IMAGE_SIZE_H))
+src3 = src3 / 255.0
+
+
+input1 = tf.convert_to_tensor(src1[np.newaxis, :, :, :], dtype=tf.float32)
+input2 = tf.convert_to_tensor(src2[np.newaxis, :, :, :], dtype=tf.float32)
+input3 = tf.convert_to_tensor(src3[np.newaxis, :, :, :], dtype=tf.float32)
 result1 = infer(input1)
 result2 = infer(input2)
+result3 = infer(input3)
 pred1 = result1["embedding"].numpy()
 pred2 = result2["embedding"].numpy()
+pred3= result3["embedding"].numpy()
 embedding1 = l2_normalize(pred1)[0]
 embedding2 = l2_normalize(pred2)[0]
+embedding3 = l2_normalize(pred3)[0]
 
-cosine_similarity = np.dot(embedding1, embedding2)
-print("余弦相似度：", cosine_similarity)
-if cosine_similarity > 0.5:  # ArcFace 常用阈值区间：0.45 ~ 0.6
-    print("判断结果：同一个人")
+cosine_similarity1 = np.dot(embedding1, embedding2)
+cosine_similarity2 = np.dot(embedding1, embedding3)
+
+print("余弦相似度：", cosine_similarity1)
+if cosine_similarity1 > 0.5:  # ArcFace 常用阈值区间：0.45 ~ 0.6
+    print("图1和图2判断结果：同一个人")
 else:
-    print("判断结果：不是同一个人")
+    print("图1和图2判断结果：不是同一个人")
+
+print("余弦相似度：", cosine_similarity2)
+if cosine_similarity2 > 0.5:  # ArcFace 常用阈值区间：0.45 ~ 0.6
+    print("图1和图3判断结果：同一个人")
+else:
+    print("图1和图3判断结果：不是同一个人")

@@ -26,7 +26,7 @@ class ArcFaceLayer(tf.keras.layers.Layer):
         self.cos_m = tf.constant(math.cos(self.margin), dtype=tf.float32)
         self.sin_m = tf.constant(math.sin(self.margin), dtype=tf.float32)
         self.th = tf.constant(math.cos(math.pi - self.margin), dtype=tf.float32)
-        self.mm = tf.constant(math.sin(self.margin) * self.margin, dtype=tf.float32)  # 直接算好！
+        self.mm = tf.constant(math.sin(self.margin) * self.margin, dtype=tf.float32) #m为0.5时 mm为0.25 th=138°
 
     def build(self, input_shape):
         self.w = self.add_weight(
@@ -48,9 +48,12 @@ class ArcFaceLayer(tf.keras.layers.Layer):
         sin_t = tf.sqrt(tf.clip_by_value(1.0 - tf.square(cos_t), 1e-6, 1.0), name='sin_t')
 
         cos_mt = tf.subtract(
-            cos_t * self.cos_m, sin_t * self.sin_m, name='cos_mt')
+            cos_t * self.cos_m, sin_t * self.sin_m, name='cos_mt') # 三界函数公式
 
         cos_mt = tf.where(cos_t > self.th, cos_mt, cos_t - self.mm)
+        # cos_mt = tf.where(cos_t > self.th, cos_mt, cos_t)
+        # cos_mt = tf.where(cos_t > self.th, cos_mt, cos_t - 0.1)
+        cos_mt = tf.maximum(cos_mt, -1.0 + 1e-6)
 
         mask = tf.one_hot(tf.cast(labels, tf.int32), depth=self.num_classes,
                           name='one_hot_mask')

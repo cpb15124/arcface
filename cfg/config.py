@@ -13,9 +13,13 @@
 # (at your option) any later version.
 
 import os
+from cfg.args import parse_args
+
+args = parse_args()
+
 
 def get_output_unit():
-    dirs = os.listdir('J:\\LLM\\')
+    dirs = os.listdir(args.train_data)
 
     return len(dirs)
 
@@ -40,4 +44,4 @@ class Config(object):
 
 if __name__ == '__main__':
     c = Config()
-    print(1)
+    print(c.NUM_CLASSES)
