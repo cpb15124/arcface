@@ -23,8 +23,11 @@ _本项目去除了所有不必要的复杂依赖和代码，只保留核心实�
 git clone https://github.com/cpb15124/arcface-tutorial.git
 cd arcface-tutorial
 ```
-### 2. Install dependencies / 1. 安装依赖
+### 2. Install dependencies / 2. 安装依赖
 ```bash
-git clone https://github.com/cpb15124/arcface-tutorial.git
-cd arcface-tutorial
+pip install -r requirements.txt
+```
+### 3. Download dataset(optional, e.g., LFW) / 3. 下载数据集（可选，例如LFW）
+```bash
+http://vis-www.cs.umass.edu/lfw/lfw.tgz
 ```
