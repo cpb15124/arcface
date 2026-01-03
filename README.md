@@ -29,5 +29,6 @@ pip install -r requirements.txt
 ```
 ### 3. Download dataset(optional, e.g., LFW) / 3. 下载数据集（可选，例如LFW）
 ```bash
-http://vis-www.cs.umass.edu/lfw/lfw.tgz
+https://pan.baidu.com/s/1tr-evZMgUpMgvfE_I9lMYw
+f3zc
 ```
